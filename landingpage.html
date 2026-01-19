@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFresh | Purely Organic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --olive: #3a5a40;
+            --moss: #588157;
+            --sage: #a3b18a;
+            --cream: #dad7cd;
+            --terracotta: #bc6c25;
+            --earth-dark: #1a2e1a; /* Deeper Dark Green */
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Outfit', sans-serif;
+            
+            /* ENTIRE BACKGROUND: Deep Forest Earth */
+            background: linear-gradient(135deg, #1a2e1a 0%, #2d4a2d 100%);
+            background-attachment: fixed;
+            
+            color: #fefae0;
+            overflow-x: hidden;
+            transition: background 0.8s ease;
+        }
+
+        /* Subtle Leaf Overlay Pattern for the ENTIRE background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/leaf.png");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: rgba(26, 46, 26, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--sage) !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: rgba(254, 250, 224, 0.8) !important;
+            margin: 0 15px;
+        }
+
+        .nav-cta {
+            background: var(--terracotta);
+            color: white !important;
+            padding: 8px 22px !important;
+            border-radius: 50px;
+            margin-left: 20px;
+        }
+
+        /* --- Auth Container (Glassmorphism) --- */
+        .container-box {
+            position: relative;
+            width: 900px;
+            max-width: 95%;
+            height: 620px;
+            /* Made slightly more opaque for readability on dark background */
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 40px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            margin: 120px 0 60px;
+            display: flex;
+            z-index: 1;
+        }
+
+        .form-panel {
+            position: absolute;
+            top: 0; height: 100%; width: 50%;
+            transition: all 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--earth-dark);
+        }
+
+        .login-panel { left: 0; z-index: 2; opacity: 1; }
+        .register-panel { left: 0; z-index: 1; opacity: 0; }
+
+        .container-box.active .login-panel { transform: translateX(100%); opacity: 0; }
+        .container-box.active .register-panel { transform: translateX(100%); opacity: 1; z-index: 5; }
+
+        /* --- Form Elements --- */
+        h2 { font-family: 'Playfair Display', serif; color: var(--olive); }
+
+        .form-control, .form-select {
+            background: #f8f9fa !important;
+            border: 2px solid #e9edc9 !important;
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 15px;
+            color: var(--earth-dark) !important;
+        }
+
+        .btn-organic {
+            background: var(--olive);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-organic:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+        }
+
+        /* --- Overlay --- */
+        .overlay-side {
+            position: absolute;
+            top: 0; left: 50%; width: 50%; height: 100%;
+            background: linear-gradient(rgba(58, 90, 64, 0.8), rgba(58, 90, 64, 0.8)), 
+                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            z-index: 10;
+            transition: transform 0.7s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .container-box.active .overlay-side { transform: translateX(-100%); }
+
+        .btn-outline-leaf {
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 50px;
+            padding: 10px 35px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-outline-leaf:hover { background: white; color: var(--olive); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">🌿ORGANIC.PRODUCT</a>
+        <div class="collapse navbar-collapse" id="navContent">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="#">The Store</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sustainability</a></li>
+                <li class="nav-item"><a class="nav-link nav-cta" href="#">Shop</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-box" id="containerBox">
+    
+    <div class="form-panel login-panel">
+        <h2 class="mb-2">Welcome Back</h2>
+        <p class="text-muted small mb-4">Log in.</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            
+            <select name="role" class="form-select mb-4" required>
+                <option value="user">Individual Buyer</option>
+                <option value="store">Shop Owners</option>
+            </select>
+            
+            <button type="submit" class="btn btn-organic w-100">Sign In</button>
+        </form>
+    </div>
+
+    <div class="form-panel register-panel">
+        <h2 class="mb-2">Grow With Us</h2>
+        <p class="text-muted small mb-4">Join our network of organic enthusiasts.</p>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-2">
+                <div class="col-6"><input class="form-control" name="username" placeholder="Name" required></div>
+                <div class="col-6"><input class="form-control" name="email" type="email" placeholder="Email" required></div>
+            </div>
+            <input class="form-control" name="mobile" placeholder="Mobile Number" required>
+            <input class="form-control" type="password" name="password" placeholder="Password" required>
+            
+            <select class="form-select" name="role">
+                <option value="user">Join as Buyer</option>
+                <option value="store">Join as Shop Owners</option>
+            </select>
+            
+            <input class="form-control" type="file" name="photo">
+            
+            <button class="btn btn-organic w-100 mt-2">Create Account</button>
+        </form>
+    </div>
+
+    <div class="overlay-side">
+        <div class="overlay-content text-center">
+            <h2 id="overTitle" class="text-white mb-3">Freshly Picked?</h2>
+            <p id="overDesc" class="mb-4">"The soul is healed by being with nature." Start your journey with us.</p>
+            <button class="btn btn-outline-leaf" id="toggleBtn">Sign Up Today</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const container = document.getElementById('containerBox');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const overTitle = document.getElementById('overTitle');
+    const overDesc = document.getElementById('overDesc');
+
+    toggleBtn.addEventListener('click', () => {
+        container.classList.toggle('active');
+        
+        if(container.classList.contains('active')) {
+            toggleBtn.innerText = "Log In";
+            overTitle.innerText = "Already a Partner?";
+            overDesc.innerText = "Stay connected with your community and manage deliveries.";
+            // Subtle shift in the full background gradient
+            document.body.style.background = "linear-gradient(135deg, #2d4a2d 0%, #1a2e1a 100%)";
+        } else {
+            toggleBtn.innerText = "Sign Up Today";
+            overTitle.innerText = "Freshly Picked?";
+            overDesc.innerText = "\"The soul is healed by being with nature.\" Start your journey today.";
+            document.body.style.background = "linear-gradient(135deg, #1a2e1a 0%, #2d4a2d 100%)";
+        }
+    });
+</script>
+
+</body>
+</html>
