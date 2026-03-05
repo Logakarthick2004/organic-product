@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraFresh | Admin Command Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --olive: #3a5a40;
+            --moss: #588157;
+            --sage: #a3b18a;
+            --terracotta: #bc6c25;
+            --earth-dark: #1a2e1a;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Outfit', sans-serif;
+            color: var(--earth-dark);
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--earth-dark);
+            position: fixed;
+            padding: 20px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.7);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: var(--olive);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+        }
+
+        /* Dashboard Cards */
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+
+        .stat-card:hover { transform: translateY(-5px); }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Table Styling */
+        .product-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .table thead {
+            background: #f1f3f0;
+        }
+
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding: 20px;
+            border: none;
+        }
+
+        .table td {
+            padding: 20px;
+            vertical-align: middle;
+            border-color: #f8f9fa;
+        }
+
+        .img-thumb {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #f8f9fa;
+        }
+
+        .badge-stock {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Profile Dropdown */
+        .admin-profile {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h4 class="font-playfair fw-bold mb-5 text-sage">🌿Organic Product</h4>
+    <nav class="nav flex-column">
+        <a class="nav-link active" href="#"><i class="bi bi-grid-1x2-fill me-2"></i> Dashboard</a>
+        <a class="nav-link" href="#"><i class="bi bi-basket3-fill me-2"></i> Orders</a>
+        <a class="nav-link" href="#"><i class="bi bi-leaf-fill me-2"></i> Inventory</a>
+        <a class="nav-link" href="#"><i class="bi bi-people-fill me-2"></i> Customers</a>
+        <a class="nav-link" href="#"><i class="bi bi-graph-up-arrow me-2"></i> Analytics</a>
+        <hr class="opacity-10">
+        <a class="nav-link" href="#"><i class="bi bi-gear-fill me-2"></i> Settings</a>
+    </nav>
+</div>
+
+<div class="main-content">
+    
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold mb-0">Admin Overview</h2>
+            <p class="text-muted">Welcome back, Super Admin</p>
+        </div>
+        <div class="admin-profile d-flex align-items-center gap-3">
+            <div class="text-end d-none d-sm-block">
+                <p class="small fw-bold mb-0">Admin User</p>
+                <p class="small text-muted mb-0">Master Control</p>
+            </div>
+            <img src="https://ui-avatars.com/api/?name=Admin&background=3a5a40&color=fff" class="rounded-circle" width="40">
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="icon-box bg-success bg-opacity-10 text-success"><i class="bi bi-currency-rupee"></i></div>
+                <h3 class="fw-bold">₹42,850</h3>
+                <p class="text-muted small mb-0">Total Revenue (Monthly)</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="icon-box bg-primary bg-opacity-10 text-primary"><i class="bi bi-cart-check-fill"></i></div>
+                <h3 class="fw-bold">128</h3>
+                <p class="text-muted small mb-0">Successful Orders</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="icon-box bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill"></i></div>
+                <h3 class="fw-bold">4.9</h3>
+                <p class="text-muted small mb-0">Customer Rating</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="icon-box bg-danger bg-opacity-10 text-danger"><i class="bi bi-truck"></i></div>
+                <h3 class="fw-bold">12</h3>
+                <p class="text-muted small mb-0">Pending Shipments</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold">Active Inventory</h4>
+        <button class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            <i class="bi bi-plus-lg me-2"></i>Add New Item
+        </button>
+    </div>
+
+    <div class="product-table">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="adminProductList">
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1597362868479-354421753eb5?w=50" class="img-thumb">
+                            <span class="fw-bold">Organic Broccoli</span>
+                        </div>
+                    </td>
+                    <td>Vegetables</td>
+                    <td>₹85 / 500g</td>
+                    <td>42 kg</td>
+                    <td><span class="badge-stock bg-success bg-opacity-10 text-success">Active</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-light rounded-pill px-3 me-2">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1550583724-125581cc2532?w=50" class="img-thumb">
+                            <span class="fw-bold">Pure A2 Milk</span>
+                        </div>
+                    </td>
+                    <td>Dairy</td>
+                    <td>₹95 / 1L</td>
+                    <td>05 units</td>
+                    <td><span class="badge-stock bg-warning bg-opacity-10 text-warning">Low Stock</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-light rounded-pill px-3 me-2">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4" style="background: white; color: var(--earth-dark);">
+            <div class="modal-header border-0 p-4 pb-0">
+                <h4 class="fw-bold">Add New Harvest</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="addItemForm">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Item Name</label>
+                        <input type="text" id="itemName" class="form-control rounded-pill border-light bg-light px-3" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label small fw-bold">Price (₹)</label>
+                            <input type="number" id="itemPrice" class="form-control rounded-pill border-light bg-light px-3" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label small fw-bold">Unit (e.g. 500g)</label>
+                            <input type="text" id="itemUnit" class="form-control rounded-pill border-light bg-light px-3" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Category</label>
+                        <select id="itemCat" class="form-select rounded-pill border-light bg-light px-3">
+                            <option>Vegetables</option>
+                            <option>Fruits</option>
+                            <option>Dairy</option>
+                            <option>Honey</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 rounded-pill py-3 fw-bold" style="background: var(--olive);">Save Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Handle Delete Row
+    function deleteRow(btn) {
+        if(confirm('Are you sure you want to remove this item?')) {
+            btn.closest('tr').remove();
+        }
+    }
+
+    // Handle Form Submit
+    document.getElementById('addItemForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('itemName').value;
+        const price = document.getElementById('itemPrice').value;
+        const unit = document.getElementById('itemUnit').value;
+        const cat = document.getElementById('itemCat').value;
+
+        const table = document.getElementById('adminProductList');
+        const newRow = `
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="img-thumb d-flex align-items-center justify-content-center bg-light text-muted small">NEW</div>
+                        <span class="fw-bold">${name}</span>
+                    </div>
+                </td>
+                <td>${cat}</td>
+                <td>₹${price} / ${unit}</td>
+                <td>00</td>
+                <td><span class="badge-stock bg-secondary bg-opacity-10 text-secondary">No Stock</span></td>
+                <td>
+                    <button class="btn btn-sm btn-light rounded-pill px-3 me-2">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="deleteRow(this)">Delete</button>
+                </td>
+            </tr>
+        `;
+        
+        table.insertAdjacentHTML('afterbegin', newRow);
+        
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+        modal.hide();
+        this.reset();
+    });
+</script>
+
+</body>
+</html>
